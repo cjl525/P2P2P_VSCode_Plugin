@@ -14,9 +14,10 @@ Basic VSCODE Plugin, no P2P2P functionality yet.
 
 1. **Download the source** – either clone the repository with `git clone https://github.com/<your-org>/P2P2P_VSCode_Plugin.git` or download the directory as a ZIP and extract it.
 2. **Install dependencies** – open the folder in a terminal and run `npm install` to restore the TypeScript tooling used by the extension.
-3. **Build the extension** – run `npm run compile`; this produces the compiled JavaScript in the `out/` directory that VS Code loads.
-4. **Add it to VS Code** – copy the entire project folder into your VS Code extensions directory (for example `~/.vscode/extensions/p2p2p-local`) or use `Developer: Install Extension from Location...` and point it at this folder.
-5. **Reload VS Code** – restart VS Code (or reload the window) so the extension is picked up, then run “P2P2P: Generate Diagram” from the Command Palette to verify it is active.
+3. **Build the extension** – run `npm run compile` AND 'npm install --save-dev typescript @types/node @types/vscode @types/mocha' - this produces the compiled JavaScript in the `out/` directory that VS Code loads.
+
+5. **Add it to VS Code** – copy the entire project folder into your VS Code extensions directory (for example `~/.vscode/extensions/p2p2p-local`) or use `Developer: Install Extension from Location...` and point it at this folder.
+6. **Reload VS Code** – restart VS Code (or reload the window) so the extension is picked up, then run “P2P2P: Generate Diagram” from the Command Palette to verify it is active.
 
 ## Assessment of Current Completion
 
