@@ -3,15 +3,12 @@
   "displayName": "P2P2P-VSCode",
   "description": "Prototype extension for Pluscal -> PlantUML -> PDF",
   "version": "0.0.1",
+  "publisher": "cjl525",
   "engines": {
     "vscode": "^1.105.0"
   },
   "categories": ["Other"],
-  "activationEvents": [
-    "onStartupFinished",
-    "onCommand:p2p2p.generateDiagram"
-  ],
-
+  "activationEvents": ["onCommand:p2p2p.generateDiagram"],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -19,15 +16,7 @@
         "command": "p2p2p.generateDiagram",
         "title": "P2P2P: Generate Diagram"
       }
-    ],
-    "menus": {
-      "commandPalette": [ 
-        {
-          "command": "p2p2p.generateDiagram",
-          "when": "editorTextFocus"
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
     "compile": "tsc -p ./"
