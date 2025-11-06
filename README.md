@@ -19,8 +19,8 @@ The generated package uses a minimal manifest tailored for this project so no ad
 
 ## Install the VSIX in VS Code
 
-1. Open VS Code and press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) to open the Command Palette.
-2. Run **Extensions: Install from VSIX...** and select the `p2p2p-0.0.1.vsix` file.
+1. Open VS Code and press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) to open the Command Line.
+2. Run **Extensions: Install from VSIX...** and select the `p2p2p-0.0.1.vsix` file from the directory.
 3. Reload VS Code when prompted. The “P2P2P: Generate Diagram” command will then be available from the Command Palette.
 
 ## Assessment of Current Completion
