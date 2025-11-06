@@ -8,24 +8,28 @@ This is the README for the "P2P2P" extension.
 
 ## Release Notes
 
-Basic VSCODE Plugin, no P2P2P functionality yet.
+Basic VS Code plugin, no P2P2P functionality yet.
 
-## Install and Try the Extension Locally
+## Build and Package the Extension
 
-1. **Download the source** – either clone the repository with `git clone https://github.com/<your-org>/P2P2P_VSCode_Plugin.git` or download the directory as a ZIP and extract it.
-2. **Install dependencies** – open the folder in a terminal and run `npm install` to restore the TypeScript tooling used by the extension.
-3. **Build the extension** – run `npm run compile` AND 'npm install --save-dev typescript @types/node @types/vscode @types/mocha' - this produces the compiled JavaScript in the `out/` directory that VS Code loads.
+1. **Install dependencies** – from the project root run `npm install` to restore the TypeScript tooling used by the extension.
+2. **Generate the VSIX** – run `npm run package:vsix`. This script compiles the TypeScript sources and assembles `p2p2p-0.0.1.vsix` in the project root.
 
-5. **Add it to VS Code** – copy the entire project folder into your VS Code extensions directory (for example `~/.vscode/extensions/p2p2p-local`) or use `Developer: Install Extension from Location...` and point it at this folder.
-6. **Reload VS Code** – restart VS Code (or reload the window) so the extension is picked up, then run “P2P2P: Generate Diagram” from the Command Palette to verify it is active.
+The generated package uses a minimal manifest tailored for this project so no additional tooling (such as `vsce`) is required. The `.vsix` artifact is ignored by git to avoid checking binary archives into the repository, so you will only see it locally after running the packaging script.
+
+## Install the VSIX in VS Code
+
+1. Open VS Code and press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) to open the Command Palette.
+2. Run **Extensions: Install from VSIX...** and select the `p2p2p-0.0.1.vsix` file.
+3. Reload VS Code when prompted. The “P2P2P: Generate Diagram” command will then be available from the Command Palette.
 
 ## Assessment of Current Completion
 
-Activate simply logs “P2P2P-VSCode activated!” and registers p2p2p.generateDiagram, whose only effect is to show an informational popup. There is no logic yet for converting PlusCal to PlantUML or generating PDFs, so the core workflow is still unimplemented.
+Activate simply logs “P2P2P-VSCode activated!” and registers `p2p2p.generateDiagram`, whose only effect is to show an informational popup. There is no logic yet for converting PlusCal to PlantUML or generating PDFs, so the core workflow is still unimplemented.
 
 ## Extension metadata & contributions
 
-Package.json exposes a single command titled “P2P2P: Generate Diagram” and hooks it into the command palette. No additional activation events, configuration settings, or contributions (views, tasks, etc.) are present, indicating that only the most basic scaffolding is in place.
+`package.json` exposes a single command titled “P2P2P: Generate Diagram” and hooks it into the command palette. No additional activation events, configuration settings, or contributions (views, tasks, etc.) are present, indicating that only the most basic scaffolding is in place.
 
 ### 1.0.0
 
