@@ -1,14 +1,15 @@
 {
-	"compilerOptions": {
-		"target": "ES2022",
-		"module": "Node16",
-		"lib": ["ES2022"],
-		"moduleResolution": "node16",
-		"rootDir": "src",
-		"outDir": "out",
-		"sourceMap": true,
-		"strict": true,
-		"types": ["node", "vscode", "mocha"]
-	},
-	"include": ["src"]
-	}
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "lib": ["ES2022", "DOM"],
+    "moduleResolution": "node16",
+    "rootDir": "src",
+    "outDir": "out",
+    "sourceMap": true,
+    "strict": true,
+    "types": ["vscode"]
+  },
+  "include": ["src"],
+  "exclude": ["src/test"]
+}
