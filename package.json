@@ -8,7 +8,7 @@
     "vscode": "^1.105.0"
   },
   "categories": ["Other"],
-  "activationEvents": ["onCommand:p2p2p.generateDiagram"],
+  "activationEvents": ["onStartupFinished", "onCommand:p2p2p.generateDiagram"],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
