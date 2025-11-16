@@ -8,13 +8,21 @@
     "vscode": "^1.105.0"
   },
   "categories": ["Other"],
-  "activationEvents": ["onStartupFinished", "onCommand:p2p2p.generateDiagram"],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:p2p2p.generateDiagram",
+    "onCommand:p2p2p.previewLatex"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "p2p2p.generateDiagram",
         "title": "P2P2P: Generate Diagram"
+      },
+      {
+        "command": "p2p2p.previewLatex",
+        "title": "P2P2P: Preview LaTeX"
       }
     ]
   },
