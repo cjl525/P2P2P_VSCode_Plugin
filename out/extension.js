@@ -194,4 +194,57 @@ function getLatexPreviewHtml(latex) {
   </body>
 </html>`;
 }
+async function runBackendToLatex(modelName, texPath, cwd) {
+    const backendCommand = vscode.workspace.getConfiguration('p2p2p').get('backendCommand') || 'p2p2p-backend';
+    const args = ['generate-latex', '--model', modelName, '--output', texPath];
+    try {
+        await execFileAsync(backendCommand, args, { cwd });
+    }
+    catch (error) {
+        throw new Error(`Rust backend command failed (${backendCommand} ${args.join(' ')}). Ensure the backend is installed and accessible. ${error instanceof Error ? error.message : String(error)}`);
+    }
+}
+async function compileLatex(texPath, cwd, jobName) {
+    const relativeTex = path.basename(texPath);
+    const latexmkArgs = ['-pdf', '-jobname=' + jobName, relativeTex];
+    try {
+        await execFileAsync('latexmk', latexmkArgs, { cwd });
+        return;
+    }
+    catch (latexmkError) {
+        console.warn('latexmk failed, falling back to pdflatex:', latexmkError);
+    }
+    const pdflatexArgs = ['-interaction=nonstopmode', '-jobname=' + jobName, relativeTex];
+    try {
+        await execFileAsync('pdflatex', pdflatexArgs, { cwd });
+    }
+    catch (pdflatexError) {
+        throw new Error(`Failed to compile LaTeX with both latexmk and pdflatex. ${pdflatexError instanceof Error ? pdflatexError.message : String(pdflatexError)}`);
+    }
+}
+async function generatePlantumlLatex(pumlFile, outputDir, fileStem, logoFile) {
+    const plantumlArgs = ['-tpng', '-o', outputDir, pumlFile];
+    try {
+        await execFileAsync('plantuml', plantumlArgs, { cwd: path.dirname(pumlFile) });
+    }
+    catch (error) {
+        throw new Error(`Failed to generate PNG with PlantUML. Ensure plantuml is installed. ${error instanceof Error ? error.message : String(error)}`);
+    }
+    const latexTemplate = [
+        '\\documentclass{article}',
+        '\\usepackage{graphicx}',
+        '\\usepackage[margin=1in]{geometry}',
+        '\\begin{document}',
+        '\\begin{center}',
+        logoFile ? `\\includegraphics[width=4cm]{${logoFile}}\\\\[1em]` : '',
+        `\\includegraphics[width=0.6\\linewidth]{${fileStem}.png}`,
+        '\\end{center}',
+        '\\end{document}',
+        '',
+    ]
+        .filter(Boolean)
+        .join('\n');
+    const texPath = path.join(outputDir, `${fileStem}.tex`);
+    await (0, promises_1.writeFile)(texPath, latexTemplate);
+}
 //# sourceMappingURL=extension.js.map
