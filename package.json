@@ -27,7 +27,8 @@
     }
   },
   "scripts": {
-    "compile": "tsc -p ./"
+    "compile": "tsc -p ./",
+    "lint:package": "node -e \"JSON.parse(require('fs').readFileSync('package.json', 'utf8')); console.log('package.json is valid');\""
   },
   "devDependencies": {
     "@types/vscode": "^1.105.0",
