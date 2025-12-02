@@ -8,6 +8,9 @@ This is the README for the "P2P2P" extension.
 - Generate LaTeX via your Rust backend and compile it to a PDF saved under `p2p2p_output/<model_name>.pdf`.
 - Turn a PlantUML diagram into a LaTeX-wrapped PDF with an optional logo, saved in `p2p2p_output/`.
 
+For a short implementation walkthrough of the LaTeX-related commands (preview, backend PDF, and PlantUML-to-PDF), see
+[`docs/latex-implementation.md`](docs/latex-implementation.md).
+
 ## How to use the LaTeX preview
 
 1. Open any file in VS Code and highlight the LaTeX expression you want to preview, or leave your cursor in the editor.
