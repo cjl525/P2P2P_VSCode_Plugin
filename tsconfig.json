@@ -8,7 +8,7 @@
     "outDir": "out",
     "sourceMap": true,
     "strict": true,
-    "types": ["vscode"]
+    "types": ["vscode", "node"]
   },
   "include": ["src"],
   "exclude": ["src/test"]
