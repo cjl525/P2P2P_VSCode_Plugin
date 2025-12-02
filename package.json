@@ -7,15 +7,11 @@
   "engines": {
     "vscode": "^1.105.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Other"],
   "activationEvents": [
     "onStartupFinished",
     "onCommand:p2p2p.generateDiagram",
-    "onCommand:p2p2p.previewLatex",
-    "onCommand:p2p2p.generatePdf",
-    "onCommand:p2p2p.plantumlToPdf"
+    "onCommand:p2p2p.previewLatex"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -27,24 +23,6 @@
       {
         "command": "p2p2p.previewLatex",
         "title": "P2P2P: Preview LaTeX"
-      },
-      {
-        "command": "p2p2p.generatePdf",
-        "title": "P2P2P: Generate PDF"
-      },
-      {
-        "command": "p2p2p.plantumlToPdf",
-        "title": "P2P2P: PlantUML to PDF"
-      }
-    ],
-    "configuration": {
-      "title": "P2P2P",
-      "properties": {
-        "p2p2p.backendCommand": {
-          "type": "string",
-          "default": "p2p2p-backend",
-          "description": "Command used to invoke the Rust backend that emits a LaTeX file."
-        }
       }
     }
   },
