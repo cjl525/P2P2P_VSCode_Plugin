@@ -2,27 +2,59 @@
   "name": "p2p2p",
   "displayName": "P2P2P-VSCode",
   "description": "Prototype extension for Pluscal -> PlantUML -> PDF",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "publisher": "cjl525",
   "engines": {
     "vscode": "^1.105.0"
   },
-  "categories": ["Other"],
-  "activationEvents": ["onStartupFinished", "onCommand:p2p2p.generateDiagram"],
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:p2p2p.generateDiagram",
+    "onCommand:p2p2p.previewLatex",
+    "onCommand:p2p2p.generatePdf",
+    "onCommand:p2p2p.plantumlToPdf"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "p2p2p.generateDiagram",
         "title": "P2P2P: Generate Diagram"
+      },
+      {
+        "command": "p2p2p.previewLatex",
+        "title": "P2P2P: Preview LaTeX"
+      },
+      {
+        "command": "p2p2p.generatePdf",
+        "title": "P2P2P: Generate PDF"
+      },
+      {
+        "command": "p2p2p.plantumlToPdf",
+        "title": "P2P2P: PlantUML to PDF"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "P2P2P",
+      "properties": {
+        "p2p2p.backendCommand": {
+          "type": "string",
+          "default": "p2p2p-backend",
+          "description": "Command used to invoke the Rust backend that emits a LaTeX file."
+        }
+      }
+    }
   },
   "scripts": {
-    "compile": "tsc -p ./"
+    "compile": "tsc -p ./",
+    "lint:package": "node -e \"JSON.parse(require('fs').readFileSync('package.json', 'utf8')); console.log('package.json is valid');\""
   },
   "devDependencies": {
     "@types/vscode": "^1.105.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "@types/node": "^24.10.0"
   }
 }
