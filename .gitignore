@@ -1,2 +1,5 @@
 # Ignore packaged VS Code extension artifacts
 *.vsix
+
+# Legacy shim file removed in favor of @types/node
+src/node-shims.d.ts

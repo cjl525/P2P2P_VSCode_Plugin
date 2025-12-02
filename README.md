@@ -8,6 +8,9 @@ This is the README for the "P2P2P" extension.
 - Generate LaTeX via your Rust backend and compile it to a PDF saved under `p2p2p_output/<model_name>.pdf`.
 - Turn a PlantUML diagram into a LaTeX-wrapped PDF with an optional logo, saved in `p2p2p_output/`.
 
+For a short implementation walkthrough of the LaTeX-related commands (preview, backend PDF, and PlantUML-to-PDF), see
+[`docs/latex-implementation.md`](docs/latex-implementation.md).
+
 ## How to use the LaTeX preview
 
 1. Open any file in VS Code and highlight the LaTeX expression you want to preview, or leave your cursor in the editor.
@@ -53,6 +56,7 @@ Adds a LaTeX preview helper plus a Rust-backend-driven PDF generator that writes
 2. Run `npm run compile` from the repository root to generate the `out/` artifacts.
 3. Run `npx vsce package` to produce `p2p2p-0.0.4.vsix` from the current source.
    - If `npm` exits early with `EJSONPARSE`, run `npm run lint:package` to validate `package.json` syntax and pull the latest copy from this branch if it reports errors.
+   - If `tsc` reports duplicate Node globals such as `process` or `ExecFileException`, delete any leftover `src/node-shims.d.ts` file from earlier versions and rerun `npm run compile`.
 4. In VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) and run **Extensions: Install from VSIX...**, then select the newly built VSIX (or run `code --install-extension p2p2p-0.0.4.vsix`).
 5. Reload VS Code when prompted. All P2P2P commands will then be available from the Command Palette.
 

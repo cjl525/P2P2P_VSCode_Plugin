@@ -11,5 +11,5 @@
     "types": ["vscode", "node"]
   },
   "include": ["src"],
-  "exclude": ["src/test"]
+  "exclude": ["src/test", "src/node-shims.d.ts"]
 }
