@@ -36,6 +36,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = activate;
 exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
+const path = __importStar(require("path"));
+const child_process_1 = require("child_process");
+const promises_1 = require("fs/promises");
+const util_1 = require("util");
+const execFileAsync = (0, util_1.promisify)(child_process_1.execFile);
 function activate(context) {
     console.log('P2P2P-VSCode activated!');
     const disposable = vscode.commands.registerCommand('p2p2p.generateDiagram', () => {
@@ -67,6 +72,64 @@ function activate(context) {
     context.subscriptions.push(disposable);
     context.subscriptions.push(latexPreviewCommand);
     context.subscriptions.push(statusBar);
+    context.subscriptions.push(vscode.commands.registerCommand('p2p2p.generatePdf', async () => {
+        const modelName = await vscode.window.showInputBox({
+            prompt: 'Model name for the generated PDF (used for file naming)',
+            placeHolder: 'my_model',
+            validateInput: (value) => (!value.trim() ? 'Model name is required' : undefined),
+        });
+        if (!modelName) {
+            return;
+        }
+        const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || process.cwd();
+        const outputDir = path.join(workspaceFolder, 'p2p2p_output');
+        const texPath = path.join(outputDir, `${modelName}.tex`);
+        const pdfPath = path.join(outputDir, `${modelName}.pdf`);
+        try {
+            await (0, promises_1.mkdir)(outputDir, { recursive: true });
+            await runBackendToLatex(modelName, texPath, workspaceFolder);
+            await compileLatex(texPath, outputDir, modelName);
+            vscode.window.showInformationMessage(`PDF generated at ${pdfPath}`);
+        }
+        catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            vscode.window.showErrorMessage(`Failed to generate PDF: ${message}`);
+        }
+    }));
+    context.subscriptions.push(vscode.commands.registerCommand('p2p2p.plantumlToPdf', async () => {
+        const editor = vscode.window.activeTextEditor;
+        const suggestedFile = editor?.document.uri.fsPath.endsWith('.puml')
+            ? editor.document.uri.fsPath
+            : undefined;
+        const pumlPath = await vscode.window.showInputBox({
+            prompt: 'Path to the PlantUML (.puml) file to render',
+            placeHolder: 'path/to/diagram.puml',
+            value: suggestedFile,
+            validateInput: (value) => (!value.trim() ? 'A PlantUML file path is required' : undefined),
+        });
+        if (!pumlPath) {
+            return;
+        }
+        const logoPath = await vscode.window.showInputBox({
+            prompt: 'Optional path to a logo image to place above the diagram',
+            placeHolder: 'path/to/logo.png (leave empty to omit logo)',
+        });
+        const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || process.cwd();
+        const outputDir = path.join(workspaceFolder, 'p2p2p_output');
+        const fileStem = path.basename(pumlPath, path.extname(pumlPath));
+        const texPath = path.join(outputDir, `${fileStem}.tex`);
+        const pdfPath = path.join(outputDir, `${fileStem}.pdf`);
+        try {
+            await (0, promises_1.mkdir)(outputDir, { recursive: true });
+            await generatePlantumlLatex(pumlPath, outputDir, fileStem, logoPath || undefined);
+            await compileLatex(texPath, outputDir, fileStem);
+            vscode.window.showInformationMessage(`PlantUML PDF generated at ${pdfPath}`);
+        }
+        catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            vscode.window.showErrorMessage(`Failed to generate PlantUML PDF: ${message}`);
+        }
+    }));
 }
 function deactivate() { }
 function getLatexPreviewHtml(latex) {

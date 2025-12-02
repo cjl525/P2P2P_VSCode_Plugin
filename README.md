@@ -15,15 +15,21 @@ This is the README for the "P2P2P" extension.
 
 ## Known Issues
 
+PDF generation requires a reachable Rust backend executable (configurable via `p2p2p.backendCommand`) and a LaTeX toolchain (`latexmk` or `pdflatex`) installed on your system.
+
 ## Release Notes
 
 Basic VS Code plugin with a LaTeX preview helper; core P2P2P conversion workflow is not yet implemented.
 
 ## Install the VSIX in VS Code
 
-1. Open VS Code and press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) to open the Command Line.
-2. Run **Extensions: Install from VSIX...** and select the `p2p2p-0.0.1.vsix` file from the directory. or 'code --install-extension p2p2p-0.0.1.vsix'
-3. Reload VS Code when prompted. The “P2P2P: Generate Diagram” command will then be available from the Command Palette.
+> The checked-in `p2p2p-0.0.1.vsix` was created before the LaTeX preview existed. Build and install a fresh VSIX from this branch to get `P2P2P: Preview LaTeX`.
+
+1. Install the VS Code packaging tool if you do not already have it: `npm install -g @vscode/vsce` (or add it as a dev dependency and run with `npx`).
+2. Run `npm run compile` from the repository root to generate the `out/` artifacts.
+3. Run `npx vsce package` to produce `p2p2p-0.0.4.vsix` from the current source.
+4. In VS Code, press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) and run **Extensions: Install from VSIX...**, then select the newly built VSIX (or run `code --install-extension p2p2p-0.0.4.vsix`).
+5. Reload VS Code when prompted. All P2P2P commands will then be available from the Command Palette.
 
 ## Assessment of Current Completion
 

@@ -2,7 +2,7 @@
   "name": "p2p2p",
   "displayName": "P2P2P-VSCode",
   "description": "Prototype extension for Pluscal -> PlantUML -> PDF",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "publisher": "cjl525",
   "engines": {
     "vscode": "^1.105.0"
@@ -24,13 +24,14 @@
         "command": "p2p2p.previewLatex",
         "title": "P2P2P: Preview LaTeX"
       }
-    ]
+    }
   },
   "scripts": {
     "compile": "tsc -p ./"
   },
   "devDependencies": {
     "@types/vscode": "^1.105.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "@types/node": "^24.10.0"
   }
 }
